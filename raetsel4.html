@@ -1,0 +1,739 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stadtmuseum Lindenfeld</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: #171717;
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(ellipse at 15% 10%, #dcefe5 0%, transparent 42%),
+        radial-gradient(ellipse at 90% 85%, #d7e9e7 0%, transparent 38%),
+        #f7f7f1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 7%;
+      border-bottom: 1px solid rgba(23, 23, 23, 0.12);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #171717;
+      border-radius: 4px;
+      font-family: Georgia, serif;
+      font-size: 22px;
+    }
+
+    .brand-name {
+      font-family: Georgia, serif;
+      font-size: 20px;
+    }
+
+    nav {
+      display: flex;
+      gap: 24px;
+    }
+
+    nav a {
+      color: #171717;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    nav a:hover {
+      opacity: 0.6;
+    }
+
+    main {
+      flex: 1;
+      width: 100%;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 60px 24px;
+    }
+
+    .museum-label {
+      color: #4d5a50;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3 {
+      font-family: Georgia, serif;
+      font-weight: normal;
+    }
+
+    h1 {
+      max-width: 700px;
+      margin: 18px 0;
+      font-size: clamp(38px, 6vw, 60px);
+      line-height: 1.08;
+      letter-spacing: -1.5px;
+    }
+
+    .intro {
+      max-width: 650px;
+      color: #414141;
+      font-size: 16px;
+      line-height: 1.8;
+    }
+
+    .section {
+      margin-top: 48px;
+    }
+
+    .section h2 {
+      margin: 0 0 12px;
+      font-size: 29px;
+    }
+
+    .section-description {
+      color: #505050;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .rooms {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .room {
+      min-height: 140px;
+      padding: 20px 16px;
+      border: 1px solid rgba(23, 23, 23, 0.16);
+      background: rgba(255, 255, 255, 0.32);
+    }
+
+    .room-number {
+      color: #5a665d;
+      font-size: 12px;
+      letter-spacing: 1px;
+    }
+
+    .room h3 {
+      margin: 12px 0 8px;
+      font-size: 22px;
+    }
+
+    .room p {
+      margin: 0;
+      color: #505050;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .puzzle {
+      padding: 28px;
+      border: 1px solid rgba(23, 23, 23, 0.16);
+      background: rgba(255, 255, 255, 0.42);
+    }
+
+    .clues {
+      margin: 22px 0 30px;
+      padding-left: 23px;
+    }
+
+    .clues li {
+      padding-left: 5px;
+      margin-bottom: 13px;
+      line-height: 1.7;
+    }
+
+    .assignment-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    .assignment-table th {
+      text-align: left;
+      font-size: 12px;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: #505750;
+      font-weight: normal;
+    }
+
+    .assignment-table th,
+    .assignment-table td {
+      padding: 14px 10px;
+      border-bottom: 1px solid rgba(23, 23, 23, 0.14);
+      vertical-align: middle;
+    }
+
+    .assignment-table th:first-child,
+    .assignment-table td:first-child {
+      padding-left: 0;
+      width: 22%;
+    }
+
+    select {
+      width: 100%;
+      min-width: 0;
+      padding: 11px 8px;
+      border: 1px solid #b9beb7;
+      border-radius: 4px;
+      color: #171717;
+      background: #fbfbf7;
+      font-family: inherit;
+      font-size: 14px;
+    }
+
+    select:focus {
+      outline: 2px solid #647d6b;
+      outline-offset: 2px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    button {
+      min-height: 44px;
+      padding: 12px 18px;
+      border: 1px solid #171717;
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .primary {
+      background: #171717;
+      color: white;
+    }
+
+    .primary:hover {
+      background: transparent;
+      color: #171717;
+    }
+
+    .secondary {
+      background: transparent;
+      color: #171717;
+    }
+
+    .secondary:hover:not(:disabled) {
+      background: #171717;
+      color: white;
+    }
+
+    button:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .feedback {
+      margin-top: 18px;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .feedback:empty {
+      display: none;
+    }
+
+    .feedback.error {
+      color: #a52d2d;
+    }
+
+    .feedback.success {
+      color: #285d3b;
+    }
+
+    .bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-top: 32px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(23, 23, 23, 0.14);
+    }
+
+    .timer {
+      color: #505050;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 22px 7%;
+      border-top: 1px solid rgba(23, 23, 23, 0.12);
+      color: #505050;
+      font-size: 12px;
+    }
+
+    @media (max-width: 720px) {
+      header {
+        padding: 18px 6%;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      nav {
+        gap: 18px;
+        flex-wrap: wrap;
+      }
+
+      main {
+        padding: 45px 6%;
+      }
+
+      .rooms {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .puzzle {
+        padding: 20px;
+      }
+
+      .assignment-table th,
+      .assignment-table td {
+        padding: 12px 5px;
+      }
+
+      .assignment-table th:first-child,
+      .assignment-table td:first-child {
+        width: 19%;
+      }
+
+      select {
+        font-size: 13px;
+        padding: 10px 4px;
+      }
+
+      .bottom {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .assignment-table th {
+        font-size: 10px;
+        letter-spacing: 0;
+      }
+
+      .assignment-table th:first-child,
+      .assignment-table td:first-child {
+        width: 17%;
+      }
+
+      .assignment-table td:first-child {
+        font-size: 13px;
+      }
+
+      select {
+        font-size: 12px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="brand">
+      <div class="brand-mark">M</div>
+      <div class="brand-name">Stadtmuseum Lindenfeld</div>
+    </div>
+
+    <nav aria-label="Hauptnavigation">
+      <a href="#ausstellung">Ausstellung</a>
+      <a href="#besuch">Besuch planen</a>
+      <a href="index.html">Startseite</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="museum-label">Stadtmuseum Lindenfeld · Seit 1986</div>
+
+    <h1>Geschichte entdecken. Zusammenhänge verstehen.</h1>
+
+    <p class="intro">
+      Willkommen im Stadtmuseum Lindenfeld. Unsere vier Ausstellungsräume
+      zeigen ausgewählte Stücke aus der Geschichte der Stadt. Jeder Raum
+      erzählt seine eigene Geschichte – von alten Gemälden bis zu den
+      Alltagsgegenständen vergangener Generationen.
+    </p>
+
+    <section class="section" id="ausstellung">
+      <h2>Unsere Ausstellung</h2>
+
+      <p class="section-description">
+        Entdecken Sie unsere vier Räume und ihre unterschiedlichen Sammlungen.
+      </p>
+
+      <div class="rooms">
+        <article class="room">
+          <div class="room-number">RAUM 01</div>
+          <h3>Galerie</h3>
+          <p>Werke und Ansichten aus der Vergangenheit.</p>
+        </article>
+
+        <article class="room">
+          <div class="room-number">RAUM 02</div>
+          <h3>Geschichte</h3>
+          <p>Gegenstände aus verschiedenen Jahrhunderten.</p>
+        </article>
+
+        <article class="room">
+          <div class="room-number">RAUM 03</div>
+          <h3>Handwerk</h3>
+          <p>Einblicke in das Leben früherer Generationen.</p>
+        </article>
+
+        <article class="room">
+          <div class="room-number">RAUM 04</div>
+          <h3>Stadtarchiv</h3>
+          <p>Kleine Fundstücke mit großer Geschichte.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="besuch">
+      <h2>Planen Sie Ihren Besuch</h2>
+
+      <p class="section-description">
+        Unsere Ausstellung öffnet gestaffelt. Die genauen Zeiten und
+        die Zuordnung der Sammlungen wurden bei der letzten Aktualisierung
+        nicht vollständig übernommen. Helfen Sie uns, den richtigen
+        Ausstellungsplan wiederherzustellen.
+      </p>
+    </section>
+
+    <section class="section puzzle">
+      <div class="museum-label">Besucherinformation · Aufgabe 04</div>
+
+      <h2>Ordnen Sie die Ausstellung richtig zu</h2>
+
+      <p class="section-description">
+        Vier Gegenstände und vier Öffnungszeiten müssen den richtigen
+        Räumen zugeordnet werden. Nutzen Sie die folgenden Hinweise.
+      </p>
+
+      <ol class="clues">
+        <li>Raum 1 öffnet um 9:00 Uhr.</li>
+        <li>Die alte Uhr steht in Raum 2.</li>
+        <li>Die Münzsammlung befindet sich in Raum 4.</li>
+        <li>Die Rüstung steht weder im ersten noch im letzten Raum.</li>
+        <li>Der Raum mit der alten Uhr öffnet früher als der Raum mit der Münzsammlung.</li>
+        <li>Das Gemälde befindet sich nicht in einem Raum, der um 10:00 Uhr öffnet.</li>
+        <li>Der Raum mit dem Gemälde liegt direkt neben dem Raum, der um 11:00 Uhr öffnet.</li>
+      </ol>
+
+      <table class="assignment-table">
+        <thead>
+          <tr>
+            <th>Raum</th>
+            <th>Gegenstand</th>
+            <th>Öffnung</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>Raum 1</td>
+            <td>
+              <select aria-label="Gegenstand Raum 1" data-room="0" data-kind="object">
+                <option value="">Auswählen</option>
+                <option value="painting">Gemälde</option>
+                <option value="clock">Alte Uhr</option>
+                <option value="coins">Münzsammlung</option>
+                <option value="armor">Rüstung</option>
+              </select>
+            </td>
+            <td>
+              <select aria-label="Öffnungszeit Raum 1" data-room="0" data-kind="time">
+                <option value="">Auswählen</option>
+                <option value="9">9:00 Uhr</option>
+                <option value="10">10:00 Uhr</option>
+                <option value="11">11:00 Uhr</option>
+                <option value="12">12:00 Uhr</option>
+              </select>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Raum 2</td>
+            <td>
+              <select aria-label="Gegenstand Raum 2" data-room="1" data-kind="object">
+                <option value="">Auswählen</option>
+                <option value="painting">Gemälde</option>
+                <option value="clock">Alte Uhr</option>
+                <option value="coins">Münzsammlung</option>
+                <option value="armor">Rüstung</option>
+              </select>
+            </td>
+            <td>
+              <select aria-label="Öffnungszeit Raum 2" data-room="1" data-kind="time">
+                <option value="">Auswählen</option>
+                <option value="9">9:00 Uhr</option>
+                <option value="10">10:00 Uhr</option>
+                <option value="11">11:00 Uhr</option>
+                <option value="12">12:00 Uhr</option>
+              </select>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Raum 3</td>
+            <td>
+              <select aria-label="Gegenstand Raum 3" data-room="2" data-kind="object">
+                <option value="">Auswählen</option>
+                <option value="painting">Gemälde</option>
+                <option value="clock">Alte Uhr</option>
+                <option value="coins">Münzsammlung</option>
+                <option value="armor">Rüstung</option>
+              </select>
+            </td>
+            <td>
+              <select aria-label="Öffnungszeit Raum 3" data-room="2" data-kind="time">
+                <option value="">Auswählen</option>
+                <option value="9">9:00 Uhr</option>
+                <option value="10">10:00 Uhr</option>
+                <option value="11">11:00 Uhr</option>
+                <option value="12">12:00 Uhr</option>
+              </select>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Raum 4</td>
+            <td>
+              <select aria-label="Gegenstand Raum 4" data-room="3" data-kind="object">
+                <option value="">Auswählen</option>
+                <option value="painting">Gemälde</option>
+                <option value="clock">Alte Uhr</option>
+                <option value="coins">Münzsammlung</option>
+                <option value="armor">Rüstung</option>
+              </select>
+            </td>
+            <td>
+              <select aria-label="Öffnungszeit Raum 4" data-room="3" data-kind="time">
+                <option value="">Auswählen</option>
+                <option value="9">9:00 Uhr</option>
+                <option value="10">10:00 Uhr</option>
+                <option value="11">11:00 Uhr</option>
+                <option value="12">12:00 Uhr</option>
+              </select>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="actions">
+        <button class="primary" id="checkButton" type="button">
+          Zuordnung überprüfen
+        </button>
+
+        <button class="secondary" id="resetButton" type="button">
+          Neu beginnen
+        </button>
+      </div>
+
+      <p class="feedback" id="feedback" aria-live="polite"></p>
+    </section>
+
+    <div class="bottom">
+      <div class="timer" id="timer" aria-live="polite">
+        Überspringen in 5:00 Minuten möglich.
+      </div>
+
+      <button class="secondary" id="skipButton" type="button" disabled>
+        Rätsel überspringen
+      </button>
+    </div>
+  </main>
+
+  <footer>
+    <span>Stadtmuseum Lindenfeld</span>
+    <span>Besucherinformation · Rätsel 04</span>
+  </footer>
+
+  <script>
+    const checkButton = document.getElementById("checkButton");
+    const resetButton = document.getElementById("resetButton");
+    const feedback = document.getElementById("feedback");
+    const timerDisplay = document.getElementById("timer");
+    const skipButton = document.getElementById("skipButton");
+
+    const selects = [...document.querySelectorAll(".assignment-table select")];
+
+    const correctObjects = [
+      "painting",
+      "clock",
+      "armor",
+      "coins"
+    ];
+
+    const correctTimes = [
+      "9",
+      "11",
+      "10",
+      "12"
+    ];
+
+    const duration = 5 * 60 * 1000;
+    const startTime = Date.now();
+
+    let solved = false;
+
+    function nextRiddle() {
+      window.location.href = "raetsel5.html";
+    }
+
+    function updateTimer() {
+      const remaining = Math.max(
+        0,
+        duration - (Date.now() - startTime)
+      );
+
+      const minutes = Math.floor(remaining / 60000);
+      const seconds = Math.ceil((remaining % 60000) / 1000);
+
+      if (remaining <= 0) {
+        timerDisplay.textContent =
+          "Du kannst dieses Rätsel jetzt überspringen.";
+        skipButton.disabled = false;
+        clearInterval(timerInterval);
+      } else {
+        timerDisplay.textContent =
+          `Überspringen in ${minutes}:${String(seconds).padStart(2, "0")} Minuten möglich.`;
+      }
+    }
+
+    const timerInterval = setInterval(updateTimer, 250);
+    updateTimer();
+
+    checkButton.addEventListener("click", () => {
+      if (solved) return;
+
+      const objectSelects = selects.filter(
+        select => select.dataset.kind === "object"
+      );
+
+      const timeSelects = selects.filter(
+        select => select.dataset.kind === "time"
+      );
+
+      const objects = objectSelects.map(select => select.value);
+      const times = timeSelects.map(select => select.value);
+
+      if (objects.some(value => !value) || times.some(value => !value)) {
+        feedback.className = "feedback error";
+        feedback.textContent =
+          "Bitte ordne zuerst jedem Raum einen Gegenstand und eine Öffnungszeit zu.";
+        return;
+      }
+
+      if (new Set(objects).size !== 4) {
+        feedback.className = "feedback error";
+        feedback.textContent =
+          "Jeder Gegenstand darf nur einem Raum zugeordnet werden.";
+        return;
+      }
+
+      if (new Set(times).size !== 4) {
+        feedback.className = "feedback error";
+        feedback.textContent =
+          "Jede Öffnungszeit darf nur einmal vergeben werden.";
+        return;
+      }
+
+      const objectsCorrect = objects.every(
+        (value, index) => value === correctObjects[index]
+      );
+
+      const timesCorrect = times.every(
+        (value, index) => value === correctTimes[index]
+      );
+
+      if (objectsCorrect && timesCorrect) {
+        solved = true;
+        feedback.className = "feedback success";
+        feedback.textContent =
+          "Alle Zuordnungen stimmen. Die Ausstellung ist korrekt eingetragen.";
+
+        checkButton.textContent = "Weiter zum nächsten Rätsel";
+        checkButton.addEventListener("click", nextRiddle, { once: true });
+        checkButton.disabled = false;
+
+        selects.forEach(select => {
+          select.disabled = true;
+        });
+
+        resetButton.disabled = true;
+      } else {
+        feedback.className = "feedback error";
+        feedback.textContent =
+          "Noch nicht ganz richtig. Prüfe die Hinweise erneut und vergleiche deine Zuordnungen.";
+      }
+    });
+
+    resetButton.addEventListener("click", () => {
+      if (solved) return;
+
+      selects.forEach(select => {
+        select.value = "";
+      });
+
+      feedback.textContent = "";
+      feedback.className = "feedback";
+    });
+
+    skipButton.addEventListener("click", () => {
+      if (!skipButton.disabled) {
+        nextRiddle();
+      }
+    });
+  </script>
+</body>
+</html>

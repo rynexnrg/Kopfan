@@ -1,0 +1,452 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kopf an – Rätsel 3</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      color: #171717;
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(ellipse at 15% 10%, #dcefe5 0%, transparent 42%),
+        radial-gradient(ellipse at 90% 85%, #d7e9e7 0%, transparent 38%),
+        #f7f7f1;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 7%;
+      border-bottom: 1px solid rgba(23, 23, 23, 0.12);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-size: 19px;
+      font-weight: 600;
+      letter-spacing: -0.5px;
+    }
+
+    .logo-mark {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border: 1px solid #171717;
+      border-radius: 9px;
+      font-family: Georgia, serif;
+      font-size: 20px;
+    }
+
+    nav a {
+      color: #171717;
+      font-size: 14px;
+      text-decoration: none;
+    }
+
+    nav a:hover {
+      opacity: 0.65;
+    }
+
+    main {
+      flex: 1;
+      width: 100%;
+      max-width: 850px;
+      margin: 0 auto;
+      padding: 80px 24px 50px;
+    }
+
+    .eyebrow {
+      color: #505750;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 18px 0;
+      font-family: Georgia, serif;
+      font-size: clamp(38px, 6vw, 62px);
+      font-weight: normal;
+      line-height: 1.1;
+      letter-spacing: -1.8px;
+    }
+
+    .description {
+      max-width: 570px;
+      color: #414141;
+      font-size: 16px;
+      line-height: 1.8;
+    }
+
+    .puzzle {
+      margin-top: 42px;
+      padding: 30px;
+      border: 1px solid rgba(23, 23, 23, 0.12);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.45);
+    }
+
+    .puzzle h2 {
+      margin: 0 0 20px;
+      font-family: Georgia, serif;
+      font-size: 25px;
+      font-weight: normal;
+    }
+
+    .intro {
+      margin: 0 0 22px;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    .statement {
+      margin: 0;
+      padding: 17px 0;
+      border-top: 1px solid rgba(23, 23, 23, 0.13);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    .statement strong {
+      font-weight: 600;
+    }
+
+    .question {
+      margin-top: 26px;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    form {
+      margin-top: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #b9beb7;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.7);
+      color: #171717;
+      font-family: inherit;
+      font-size: 16px;
+    }
+
+    input:focus {
+      outline: 2px solid #647d6b;
+      outline-offset: 2px;
+    }
+
+    input.wrong {
+      border-color: #c74747;
+      animation: shake 0.35s ease;
+    }
+
+    button {
+      font-family: inherit;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .submit-button {
+      width: 100%;
+      margin-top: 12px;
+      padding: 13px 18px;
+      border: 1px solid #171717;
+      border-radius: 6px;
+      background: #171717;
+      color: #fff;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .submit-button:hover {
+      background: transparent;
+      color: #171717;
+    }
+
+    .feedback {
+      min-height: 0;
+      margin-top: 12px;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .feedback:empty {
+      display: none;
+    }
+
+    .feedback.error {
+      color: #b52d2d;
+    }
+
+    .bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-top: 32px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(23, 23, 23, 0.14);
+    }
+
+    .timer {
+      color: #454545;
+      font-size: 13px;
+    }
+
+    .skip-button {
+      padding: 10px 15px;
+      border: 1px solid #171717;
+      border-radius: 6px;
+      background: transparent;
+      color: #171717;
+    }
+
+    .skip-button:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .skip-button:not(:disabled):hover {
+      background: #171717;
+      color: #fff;
+    }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 22px 7%;
+      border-top: 1px solid rgba(23, 23, 23, 0.12);
+      color: #505050;
+      font-size: 12px;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-6px); }
+      40%, 80% { transform: translateX(6px); }
+    }
+
+    @media (max-width: 600px) {
+      header {
+        padding: 18px 6%;
+      }
+
+      main {
+        padding: 55px 6% 35px;
+      }
+
+      .puzzle {
+        padding: 22px;
+      }
+
+      .bottom {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      footer {
+        padding: 20px 6%;
+        flex-wrap: wrap;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      input.wrong {
+        animation: none;
+      }
+
+      *,
+      *::before,
+      *::after {
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="logo">
+      <span class="logo-mark">K</span>
+      <span>Kopf an</span>
+    </div>
+
+    <nav>
+      <a href="index.html">Startseite</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="eyebrow">Rätsel 03 · Logik</div>
+
+    <h1>Wer sagt die Wahrheit?</h1>
+
+    <p class="description">
+      Drei Personen machen jeweils eine Aussage.
+      Genau eine dieser Personen sagt die Wahrheit.
+      Lies alle Aussagen sorgfältig und finde heraus, wer recht hat.
+    </p>
+
+    <section class="puzzle">
+      <h2>Drei Aussagen</h2>
+
+      <p class="intro">
+        Anna, Ben und Clara sprechen über ihre Aussagen:
+      </p>
+
+      <p class="statement">
+        <strong>Anna:</strong> „Ben lügt.“
+      </p>
+
+      <p class="statement">
+        <strong>Ben:</strong> „Clara lügt.“
+      </p>
+
+      <p class="statement">
+        <strong>Clara:</strong> „Anna und Ben lügen beide.“
+      </p>
+
+      <p class="question">
+        Wer sagt die Wahrheit? Gib den Namen der Person ein.
+      </p>
+
+      <form id="answerForm">
+        <label for="answer">Deine Antwort</label>
+
+        <input
+          id="answer"
+          name="answer"
+          type="text"
+          placeholder="Name eingeben ..."
+          autocomplete="off"
+          required
+        >
+
+        <button class="submit-button" type="submit">
+          Antwort prüfen
+        </button>
+
+        <p class="feedback" id="feedback" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <div class="bottom">
+      <div class="timer" id="timer" aria-live="polite">
+        Überspringen in 5:00 Minuten möglich.
+      </div>
+
+      <button class="skip-button" id="skipButton" type="button" disabled>
+        Rätsel überspringen
+      </button>
+    </div>
+  </main>
+
+  <footer>
+    <span>Kopf an · Rätselraum</span>
+    <span>Rätsel 03</span>
+  </footer>
+
+  <script>
+    const form = document.getElementById("answerForm");
+    const input = document.getElementById("answer");
+    const feedback = document.getElementById("feedback");
+    const timerDisplay = document.getElementById("timer");
+    const skipButton = document.getElementById("skipButton");
+
+    const duration = 5 * 60 * 1000;
+    const startTime = Date.now();
+
+    let solved = false;
+
+    function updateTimer() {
+      const remaining = Math.max(
+        0,
+        duration - (Date.now() - startTime)
+      );
+
+      const minutes = Math.floor(remaining / 60000);
+      const seconds = Math.ceil((remaining % 60000) / 1000);
+
+      if (remaining <= 0) {
+        timerDisplay.textContent =
+          "Du kannst dieses Rätsel jetzt überspringen.";
+        skipButton.disabled = false;
+        clearInterval(timerInterval);
+      } else {
+        timerDisplay.textContent =
+          `Überspringen in ${minutes}:${String(seconds).padStart(2, "0")} Minuten möglich.`;
+      }
+    }
+
+    const timerInterval = setInterval(updateTimer, 250);
+    updateTimer();
+
+    function nextRiddle() {
+      window.location.href = "raetsel4.html";
+    }
+
+    form.addEventListener("submit", event => {
+      event.preventDefault();
+
+      if (solved) return;
+
+      const answer = input.value.trim().toLowerCase();
+
+      if (answer === "ben") {
+        solved = true;
+        window.location.href = "raetsel4.html";
+        return;
+      }
+
+      feedback.textContent = "";
+      feedback.className = "feedback";
+
+      input.classList.remove("wrong");
+      void input.offsetWidth;
+      input.classList.add("wrong");
+
+      input.addEventListener("animationend", () => {
+        input.classList.remove("wrong");
+      }, { once: true });
+    });
+
+    skipButton.addEventListener("click", () => {
+      if (!skipButton.disabled) {
+        nextRiddle();
+      }
+    });
+  </script>
+</body>
+</html>

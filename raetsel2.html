@@ -1,0 +1,423 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kopf an – Rätsel 2</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #171717;
+      background:
+        radial-gradient(ellipse at 15% 10%, #dcefe5 0%, transparent 42%),
+        radial-gradient(ellipse at 90% 85%, #d7e9e7 0%, transparent 38%),
+        #f7f7f1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 7%;
+      border-bottom: 1px solid rgba(23, 23, 23, 0.12);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-size: 19px;
+      font-weight: 600;
+      letter-spacing: -0.5px;
+    }
+
+    .logo-mark {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border: 1px solid #171717;
+      border-radius: 9px;
+      font-family: Georgia, serif;
+      font-size: 20px;
+    }
+
+    nav {
+      display: flex;
+      gap: 25px;
+    }
+
+    nav a {
+      color: #171717;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    nav a:hover {
+      opacity: 0.65;
+    }
+
+    main {
+      flex: 1;
+      width: 100%;
+      max-width: 850px;
+      margin: 0 auto;
+      padding: 80px 24px 50px;
+    }
+
+    .eyebrow {
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #505750;
+    }
+
+    h1 {
+      margin: 18px 0;
+      font-family: Georgia, serif;
+      font-size: clamp(38px, 6vw, 62px);
+      font-weight: normal;
+      line-height: 1.1;
+      letter-spacing: -1.8px;
+    }
+
+    .description {
+      max-width: 570px;
+      color: #414141;
+      font-size: 16px;
+      line-height: 1.8;
+    }
+
+    .question {
+      margin-top: 48px;
+      padding: 30px;
+      background: rgba(255, 255, 255, 0.45);
+      border: 1px solid rgba(23, 23, 23, 0.12);
+      border-radius: 12px;
+    }
+
+    .question h2 {
+      margin: 0 0 12px;
+      font-family: Georgia, serif;
+      font-size: 25px;
+      font-weight: normal;
+    }
+
+    .question p {
+      margin: 0;
+      font-size: 17px;
+      line-height: 1.7;
+    }
+
+    form {
+      margin-top: 24px;
+    }
+
+    label {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #b9beb7;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.7);
+      color: #171717;
+      font-family: inherit;
+      font-size: 16px;
+      transition: border-color 0.15s;
+    }
+
+    input:focus {
+      outline: 2px solid #647d6b;
+      outline-offset: 2px;
+    }
+
+    input.wrong {
+      border-color: #c74747;
+      animation: shake 0.35s ease;
+    }
+
+    button {
+      font-family: inherit;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .submit-button {
+      width: 100%;
+      margin-top: 12px;
+      padding: 13px 18px;
+      border: 1px solid #171717;
+      border-radius: 6px;
+      background: #171717;
+      color: #fff;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .submit-button:hover {
+      background: transparent;
+      color: #171717;
+    }
+
+    .bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-top: 32px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(23, 23, 23, 0.14);
+    }
+
+    .timer {
+      font-size: 13px;
+      color: #454545;
+    }
+
+    .skip-button {
+      padding: 10px 15px;
+      border: 1px solid #171717;
+      border-radius: 6px;
+      background: transparent;
+      color: #171717;
+    }
+
+    .skip-button:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .skip-button:not(:disabled):hover {
+      background: #171717;
+      color: white;
+    }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 22px 7%;
+      border-top: 1px solid rgba(23, 23, 23, 0.12);
+      font-size: 12px;
+      color: #505050;
+    }
+
+    @keyframes shake {
+      0%, 100% {
+        transform: translateX(0);
+      }
+
+      20%, 60% {
+        transform: translateX(-6px);
+      }
+
+      40%, 80% {
+        transform: translateX(6px);
+      }
+    }
+
+    @media (max-width: 600px) {
+      header {
+        padding: 18px 6%;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      nav {
+        gap: 20px;
+      }
+
+      main {
+        padding: 55px 6% 35px;
+      }
+
+      .question {
+        padding: 22px;
+        margin-top: 35px;
+      }
+
+      .bottom {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      footer {
+        padding: 20px 6%;
+        flex-wrap: wrap;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      input.wrong {
+        animation: none;
+      }
+
+      *,
+      *::before,
+      *::after {
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="logo">
+      <span class="logo-mark">K</span>
+      <span>Kopf an</span>
+    </div>
+
+    <nav aria-label="Hauptnavigation">
+      <a href="index.html">Startseite</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="eyebrow">Rätsel 02 · Denk genau nach</div>
+
+    <h1>Eine einfache Frage.</h1>
+
+    <p class="description">
+      Manchmal ist die Antwort einfacher, als man denkt.
+      Lies die Frage aufmerksam und gib deine Antwort ein.
+    </p>
+
+    <section class="question">
+      <h2>Der Monat</h2>
+
+      <p>Wie viele Monate haben 28 Tage?</p>
+
+      <form id="answerForm">
+        <label for="answer">Deine Antwort</label>
+
+        <input
+          id="answer"
+          name="answer"
+          type="text"
+          placeholder="Antwort eingeben ..."
+          autocomplete="off"
+          required
+        >
+
+        <button class="submit-button" type="submit">
+          Antwort prüfen
+        </button>
+      </form>
+    </section>
+
+    <div class="bottom">
+      <div class="timer" id="timer" aria-live="polite">
+        Überspringen in 5:00 Minuten möglich.
+      </div>
+
+      <button class="skip-button" id="skipButton" type="button" disabled>
+        Rätsel überspringen
+      </button>
+    </div>
+  </main>
+
+  <footer>
+    <span>Kopf an · Rätselraum</span>
+    <span>Rätsel 02</span>
+  </footer>
+
+  <script>
+    const form = document.getElementById("answerForm");
+    const input = document.getElementById("answer");
+    const submitButton = form.querySelector(".submit-button");
+    const timerDisplay = document.getElementById("timer");
+    const skipButton = document.getElementById("skipButton");
+
+    const duration = 5 * 60 * 1000;
+    const startTime = Date.now();
+
+    let solved = false;
+
+    function updateTimer() {
+      const remaining = Math.max(
+        0,
+        duration - (Date.now() - startTime)
+      );
+
+      const minutes = Math.floor(remaining / 60000);
+      const seconds = Math.ceil((remaining % 60000) / 1000);
+
+      if (remaining <= 0) {
+        timerDisplay.textContent =
+          "Du kannst dieses Rätsel jetzt überspringen.";
+        skipButton.disabled = false;
+        clearInterval(timerInterval);
+      } else {
+        timerDisplay.textContent =
+          `Überspringen in ${minutes}:${String(seconds).padStart(2, "0")} Minuten.`;
+      }
+    }
+
+    const timerInterval = setInterval(updateTimer, 250);
+    updateTimer();
+
+    function nextRiddle() {
+      window.location.href = "raetsel3.html";
+    }
+
+    form.addEventListener("submit", event => {
+      event.preventDefault();
+
+      if (solved) return;
+
+      const answer = input.value.trim().toLowerCase();
+
+      if (
+        answer === "12" ||
+        answer === "zwölf" ||
+        answer === "zwoelf"
+      ) {
+        solved = true;
+        window.location.href = "raetsel3.html";
+        return;
+      }
+
+      input.classList.remove("wrong");
+
+      // Erzwingt einen Neustart der Animation bei jedem Fehlversuch.
+      void input.offsetWidth;
+      input.classList.add("wrong");
+
+      input.addEventListener("animationend", () => {
+        input.classList.remove("wrong");
+      }, { once: true });
+    });
+
+    skipButton.addEventListener("click", () => {
+      if (!skipButton.disabled) {
+        nextRiddle();
+      }
+    });
+  </script>
+</body>
+</html>
